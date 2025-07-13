@@ -3,16 +3,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:habitwise_frontend/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Onboarding and navigation present', (WidgetTester tester) async {
+    await tester.pumpWidget(const HabitWiseApp());
 
-    expect(find.text('habitwise_frontend App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('Welcome to HabitWise'), findsOneWidget);
+    expect(find.text('Get Started'), findsOneWidget);
+
+    // Tap Get Started and check for Home tab
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.byType(BottomNavigationBar), findsOneWidget);
   });
 
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('FAB is present on Home screen', (WidgetTester tester) async {
+    await tester.pumpWidget(const HabitWiseApp());
 
-    expect(find.text('habitwise_frontend'), findsOneWidget);
+    // Proceed through onboarding
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(FloatingActionButton), findsOneWidget);
   });
 }
