@@ -1,1 +1,3 @@
-# habit-tracker-pro-116880
+# Project Repository
+
+This is the initial README file for the project.
